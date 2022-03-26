@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\InventoryController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,5 @@ Route::get('/', function () {
 });
 
 Route::get('/inventory', [InventoryController::class, 'index']);
+
+Route::get('/login', [AuthController::class, 'login']);
