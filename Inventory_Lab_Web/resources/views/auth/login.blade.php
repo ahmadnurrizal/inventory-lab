@@ -11,31 +11,42 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/auth.css">
 
-    <title>Document</title>
+    <title>Login</title>
 </head>
 
 <body>
     <div class="container-fluid d-flex align-items-center justify-content-center" style="background-color: orange; min-height: 100vh;">
         <div class="">
-            <div class="card p-4 mx-auto align-middle" style="width: 30rem;">
-                <h4 class="mx-auto" style="color: orange;">Admin Login</h4>
+            <div class="card px-5 py-4 mx-auto" style="border-radius: 20px; width: 400px;">
+                <h1 class="mx-auto title">Admin Login</h1>
+                <hr>
                 <form>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Username</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <!-- input email -->
+                    <div class="mt-3 row">
+                        <div class="icon-box">
+                            <i class="bi bi-envelope" style="color: white;"></i>
+                        </div>
+                        <div class="col-10">
+                            <input type="email" id="emailLogin" placeholder="E-mail" />
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1">
+                    <!-- input password -->
+                    <div class="mt-4 row">
+                        <div class="icon-box">
+                            <i class="bi bi-file-lock2" style="color: white;"></i>
+                        </div>
+                        <div class="col-10">
+                            <input type="password" id="passwordLogin" placeholder="Password">
+                        </div>
                     </div>
-    
-                    <button type="submit" class="btn btn-warning " style="color: white;">Submit</button>
+
+                    <button type="submit" class="btn-login-register mt-4 float-end">Submit</button>
                 </form>
             </div>
         </div>
     </div>
-
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
