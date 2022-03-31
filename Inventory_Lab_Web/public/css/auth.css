@@ -1,0 +1,58 @@
+.icon-box {
+    height: 40px;
+    width: 50px;
+    background-color: orange;
+    display: inline;
+    margin-right: -12px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    box-shadow: 2px 2px 5px lightgrey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input {
+    height: 40px;
+    border: none;
+    width: 110%;
+    box-shadow: 2px 2px 5px lightgrey;
+    background-color: white;
+    padding-left: 20px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+input:focus {
+    border: none;
+    outline: none;
+    box-shadow: 2px 2px 5px orange;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 0.85;
+    color: orange;
+}
+
+.btn-login-register {
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: orange;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px lightgrey;
+    transition: all 0.3s
+}
+
+.btn-login-register:hover {
+    background: orangered;
+}
+
+.btn-login-register:active {
+    background: red;
+    transform: scale(0.95);
+}

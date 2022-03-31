@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\InventoryController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/inventory', [InventoryController::class, 'index']);
+
+Route::get('/login', [AuthController::class, 'login']);
+Route::get('/register', [AuthController::class, 'regis']);
+Route::get('/admin/dashboard', function () {
+    return view('dashboard');
+});
