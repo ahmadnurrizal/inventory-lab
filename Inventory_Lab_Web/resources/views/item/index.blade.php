@@ -3,7 +3,6 @@
 
 <head>
     <title>Items</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
@@ -17,8 +16,10 @@
 @endsection
 
 @extends('layouts.app')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <body>
+
     @section('content')
     <div class="container mt-5">
         <div class="content-header row p-1">
@@ -32,7 +33,7 @@
             </div>
             <div class="col">
                 <button style="float: right;" type="button" id="tambah-btn" name="tambah"
-                    class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modal">Add Item</button>
+                    class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modal">Add Item</button>
             </div>
         </div>
         <table class="table table-bordered yajra-datatable" id="datatables-ajax">
@@ -57,7 +58,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modal-title">Tambah Item</h5>
-                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" class="form-data-validate" novalidate>
                         <input type="hidden" name="id" id="id" value="">
@@ -94,10 +95,6 @@
                             <div class="col">
                                 <input type="file" class="form-control" required name="image" id="image">
                             </div>
-                            <!-- <div class="col">
-                                <input type="text" id="quantity" class="form-control"
-                                    placeholder="Ceritanya gambar sihhh" aria-label="Quantity">
-                            </div> -->
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -124,14 +121,10 @@
             const reset_form = $('#form-data')[0];
             reset_form.reset()
             document.getElementById("id").value = null;
+            $("#modal-title").html("Add Data Item")
         });
 
         var table = $('.yajra-datatable').DataTable({
-            // fnDrawCallback: function (oSettings) {
-            //     $('.dataTables_filter').each(function () {
-            //         $(this).append('<button style="margin-left:1rem;margin-bottom:5px" type="button" id="tambah-btn" name="tambah" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modal">Add Item</button>');
-            //     });
-            // },
             processing: true,
             serverSide: true,
             ajax: "{{ route('items.list') }}",
@@ -169,21 +162,15 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
+                    $('#modal').modal('hide');
                     setTimeout(function () { $('#datatables-ajax').DataTable().ajax.reload(); }, 1000);
 
-                    var reset_form = $('#form-data')[0];
-                    $(reset_form).removeClass('was-validated');
-                    reset_form.reset();
-                    $('#modal').modal('hide');
-                    $("#modal-title").html("Add Data Item")
-                    $("#id").val()
-                    alert("berhasil add item")
+                    // alert("berhasil add item")
                 },
                 error: function (xhr) {
                     console.log(xhr.responseText);
                 }
             });
-
         });
     });
 
@@ -211,6 +198,32 @@
             }
 
         });
+    }
+
+    function delete_data(e) {
+
+        var id = e.attr('data-id');
+        jQuery.ajax({
+            url: "{{url('/item')}}" + "/" + id,
+            type: 'post',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                '_method': 'delete'
+            },
+            success: function (result) {
+
+                if (result.error) {
+                    alert('gagal delete')
+
+                } else {
+                    setTimeout(function () { $('#datatables-ajax').DataTable().ajax.reload(); }, 1000);
+                    alert('berhasil delete')
+                }
+            }
+        });
+
     }
 </script>
 @endsection
