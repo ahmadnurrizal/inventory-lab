@@ -1,18 +1,25 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Laravel 8|7 Datatables Tutorial</title>
+    <title>Items</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</head>
+</head> -->
+@section('assets_css')
+<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+@endsection
+
+@extends('layouts.app')
 
 <body>
-
+    @section('content')
     <div class="container mt-5">
         <div class="content-header row p-1">
 
@@ -28,7 +35,7 @@
                     class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modal">Add Item</button>
             </div>
         </div>
-        <table class="table table-bordered yajra-datatable">
+        <table class="table table-bordered yajra-datatable" id="datatables-ajax">
             <thead>
                 <tr>
                     <th>Item ID</th>
@@ -100,13 +107,16 @@
             </form>
         </div>
     </div>
+    @endsection
 </body>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script> -->
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
+
+@section('assets_js')
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -159,6 +169,14 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
+                    setTimeout(function () { $('#datatables-ajax').DataTable().ajax.reload(); }, 1000);
+
+                    var reset_form = $('#form-data')[0];
+                    $(reset_form).removeClass('was-validated');
+                    reset_form.reset();
+                    $('#modal').modal('hide');
+                    $("#modal-title").html("Add Data Item")
+                    $("#id").val()
                     alert("berhasil add item")
                 },
                 error: function (xhr) {
@@ -193,11 +211,8 @@
             }
 
         });
-
     }
-
-
-
 </script>
+@endsection
 
 </html>
