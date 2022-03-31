@@ -1,0 +1,97 @@
+  ul {
+    list-style-type: none;
+}
+
+body{
+  background-color: #F3F3F3;
+}
+
+.sidebar {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: 0.5s;
+  background-color: #FF9900;
+  color: white;
+}
+
+.sidebar a {
+  padding: 14px;
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+  display: block;
+  transition: 0.3s;
+  border-bottom: 1px solid white;
+}
+
+a.active{
+  border: none;
+  color:#FF9900;
+  font-weight: bold;
+  background-color: #F3F3F3;
+  margin-left: 24px;
+  margin-bottom: 10px;
+  padding-left: 24px;
+  border-radius: 24px 0px 0px 24px;
+  box-shadow: 1px 3px 5px 1px rgba(0,0,0,0.2);
+}
+
+.sidebar a:hover {
+  color: #FF9900;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.sidebar-toggle {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 16px;
+  color: #FF9900;
+  padding: 10px 15px;
+  border: none;
+  box-shadow:  1px 3px 5px 1px rgba(0,0,0,0.2);
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 20px;
+  margin-left: 250px
+}
+
+
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+
+.logout-btn{
+  position: absolute;
+  bottom: 10vh;
+  left: -50px;
+  font-size: 24px;
+  font-weight: bold;
+  background-color: white;
+  color:#FF9900;
+  padding: 10px 50px 10px 100px;
+  border: none;
+  border-radius: 50px;
+  box-shadow:  2px 5px 5px 1px rgba(0,0,0,0.2);
+}
