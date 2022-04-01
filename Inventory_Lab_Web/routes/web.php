@@ -24,3 +24,6 @@ Route::get('/register', [AuthController::class, 'regis']);
 Route::get('/admin/dashboard', function () {
     return view('dashboard');
 });
+Route::get('/borrowing-form', function () {
+    return view('form/borrowing');
+});
