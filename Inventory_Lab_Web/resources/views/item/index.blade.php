@@ -31,6 +31,7 @@
                     </div>
                 </div>
             </div>
+            <hr>
             <div class="col">
                 <button style="float: right;" type="button" id="tambah-btn" name="tambah"
                     class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modal">Add Item</button>

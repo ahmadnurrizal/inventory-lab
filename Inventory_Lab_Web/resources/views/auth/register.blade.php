@@ -29,7 +29,7 @@
                         <i class="bi bi-person" style="color: white;"></i>
                     </div>
                     <div class="col-10">
-                        <input type="text" id="nameRegis" placeholder="Name" />
+                        <input type="text" id="nameRegis" name="nameRegis" placeholder="Name" />
                     </div>
                 </div>
                 <!-- input E-mail -->
@@ -38,7 +38,7 @@
                         <i class="bi bi-envelope" style="color: white;"></i>
                     </div>
                     <div class="col-10">
-                        <input type="email" id="emailRegis" placeholder="E-mail" />
+                        <input type="email" id="emailRegis" name="emailRegis" placeholder="E-mail" />
                     </div>
                 </div>
                 <!-- input password -->
@@ -47,7 +47,7 @@
                         <i class="bi bi-file-lock2" style="color: white;"></i>
                     </div>
                     <div class="col-10">
-                        <input type="password" id="passwordRegis" placeholder="Password">
+                        <input type="password" id="passwordRegis" name="passwordRegis" placeholder="Password">
                     </div>
                 </div>
                 <!-- input id number -->

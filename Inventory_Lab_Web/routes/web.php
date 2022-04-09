@@ -27,8 +27,14 @@ Route::post('/item/{id}', [ItemController::class, 'update']);
 Route::delete('/item/{id}', [ItemController::class, 'destroy']);
 Route::get('/item/list', [ItemController::class, 'getItems'])->name('items.list');
 
-Route::get('/login', [AuthController::class, 'login']);
-Route::get('/register', [AuthController::class, 'regis']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'regis']);
+Route::get('/login', [AuthController::class, 'loginIndex']);
+Route::get('/register', [AuthController::class, 'regisIndex']);
 Route::get('/admin/dashboard', function () {
     return view('dashboard');
+});
+
+Route::middleware('auth:sanctum')->get('/user', function () {
+    Route::delete('/logout', [AuthController::class, 'logout']);
 });
