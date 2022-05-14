@@ -1,0 +1,25 @@
+.dashboard-wrapper{
+  padding: 50px 10px
+}
+
+.dashboard-count-box{
+  width: 100%;
+  height: 20vh;
+  /* border: 1px solid black; */
+  border-radius: 24px;
+  box-shadow: -20px 30px 1px 1px #FF9900
+}
+
+.dashboard-news-box{
+  width: 100%;
+  height: 45vh;
+  /* border: 1px solid black; */
+  border-radius: 24px;
+}
+
+.dashboard-count-box-title{
+  background-color: #FF9900;
+  padding:10px;
+  margin: 0px;
+  border-radius: 0px 10px 1px 10px;
+}
