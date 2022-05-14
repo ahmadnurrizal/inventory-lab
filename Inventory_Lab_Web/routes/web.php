@@ -30,4 +30,9 @@ Route::get('/item/list', [ItemController::class, 'getItems'])->name('items.list'
 
 Route::get('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'regis']);
+
+Route::get('/borrowing-form', function () {
+    return view('form/borrowing');
+});
+
 Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
