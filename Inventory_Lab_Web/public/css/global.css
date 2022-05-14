@@ -1,9 +1,18 @@
-  ul {
+*{
+  font-family: 'Comic Neue', cursive;
+  color: #FF9900
+}
+
+ul {
     list-style-type: none;
 }
 
 body{
   background-color: #F3F3F3;
+}
+
+.bi{
+  color: white
 }
 
 .sidebar {
@@ -38,13 +47,18 @@ a.active{
   background-color: #F3F3F3;
   margin-left: 24px;
   margin-bottom: 10px;
+  margin-top:10px;
   padding-left: 24px;
   border-radius: 24px 0px 0px 24px;
   box-shadow: 1px 3px 5px 1px rgba(0,0,0,0.2);
 }
 
-.sidebar a:hover {
-  color: #FF9900;
+a.active .bi{
+  color: #FF9900
+}
+
+.sidebar li:hover * {
+  color: red !important;
 }
 
 .sidebar .closebtn {
@@ -76,15 +90,28 @@ a.active{
   margin-left: 250px
 }
 
+.main-title{
+  padding-top: 50px;
+  padding-left: 20px;
+  padding-bottom: 0px
+}
 
-@media screen and (max-height: 450px) {
+.main-container{
+  background-color: white;
+  border-radius: 24px;
+  margin: 20px 50px;
+  padding: 5px 20px;
+  box-shadow:  1px 3px 5px 1px rgba(0,0,0,0.2);
+}
+
+@media screen and (max-width: 1360px) {
   .sidebar {padding-top: 15px;}
-  .sidebar a {font-size: 18px;}
+  .sidebar a {font-size: 14px;}
 }
 
 .logout-btn{
   position: absolute;
-  bottom: 10vh;
+  bottom: 5vh;
   left: -50px;
   font-size: 24px;
   font-weight: bold;
