@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('stored_location');
             $table->text('description');
             $table->tinyInteger('quantity');
+            $table->string('status');
             $table->timestamps();
         });
     }

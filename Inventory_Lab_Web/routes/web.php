@@ -5,6 +5,7 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BorrowingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,5 +35,6 @@ Route::get('/register', [AuthController::class, 'regis']);
 Route::get('/borrowing-form', function () {
     return view('form/borrowing');
 });
+Route::post('/borrowing-confirm', [BorrowingController::class, 'checkUserData'])->name('borrowing.confirm');
 
 Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');

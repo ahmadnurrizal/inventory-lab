@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -32,14 +33,15 @@
                     <div class="card px-5 py-4 mx-auto" style="border-radius: 20px; width: 400px;">
                         <h1 class="mx-auto title">Borrowing Form</h1>
                         <hr>
-                        <form>
+                        <form  id="form-data">
+                            @csrf
                             <!-- input id number -->
                             <div class="mb-3 row">
                                 <div class=" icon-box">
                                     <i class="bi bi-person-badge" style="color: white;"></i>
                                 </div>
                                 <div class="col-10">
-                                    <input type="text" id="idNumberRegis" placeholder="ID Number">
+                                    <input type="text" id="idNumberRegis" name="idNumberRegis" placeholder="ID Number">
                                 </div>
                             </div>
                             <!-- input password -->
@@ -48,7 +50,7 @@
                                     <i class="bi bi-file-lock2" style="color: white;"></i>
                                 </div>
                                 <div class="col-10">
-                                    <input type="password" id="passwordRegis" placeholder="Password">
+                                    <input type="password" id="passwordRegis" name="passwordRegis" placeholder="Password">
                                 </div>
                             </div>
 
@@ -124,3 +126,38 @@
 </body>
 
 </html>
+<script>
+    Array.prototype.filter.call($('#form-data'), function (form) {
+        form.addEventListener('submit', function (event) {
+            let formData = new FormData(this);
+            event.preventDefault();
+
+            var url = "{{ route('borrowing.confirm') }}"
+            $.ajax({
+                url: url,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'post',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+
+
+                    var reset_form = $('#form-data')[0];
+                    $(reset_form).removeClass('was-validated');
+                    reset_form.reset();
+
+
+                    alert("berhasil update status")
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+
+        });
+    });
+
+</script>

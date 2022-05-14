@@ -71,4 +71,19 @@ class ItemController extends Controller
     public function uploadFile(Request $request)
     {
     }
+
+    public function updateStatus($id, $status)
+    {
+
+        $item = Item::where('id', $id)->get();
+
+        if ($item != null) {
+            $item->status = $status;
+            $item->save();
+            return response()->json([
+                "error" => false,
+                "message" => "Successfuly update item"
+            ]);
+        }
+    }
 }
