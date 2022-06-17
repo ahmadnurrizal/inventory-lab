@@ -6,6 +6,7 @@ use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BorrowingController;
+use App\Models\Item;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,10 +32,14 @@ Route::get('/item/list', [ItemController::class, 'getItems'])->name('items.list'
 
 Route::get('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'regis']);
+Route::post('/register', [AuthController::class, 'regisAction'])->name('register');
+Route::post('/login', [AuthController::class, 'loginAction'])->name('login');
 
 Route::get('/borrowing-form', function () {
-    return view('form/borrowing');
+    $items = Item::all();
+    return view('form/borrowing', compact('items'));
 });
 Route::post('/borrowing-confirm', [BorrowingController::class, 'checkUserData'])->name('borrowing.confirm');
+Route::post('/borrow', [BorrowingController::class, 'borrowItems']);
 
 Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');

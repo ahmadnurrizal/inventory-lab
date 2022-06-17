@@ -24,35 +24,29 @@ class BorrowingController extends Controller
 
     public function checkUserData(Request $req)
     {
-        $item = $req->all();
-        // var_dump($item);
         $req->validate([
-            'idNumberRegis' => 'required|numeric',
+            'idNumberRegis' => 'required',
             'passwordRegis' => 'required'
         ]);
-
-        $user = User::where('id', $req->idNumberRegis)->get();
-
+        $user = User::where('id', $req->idNumberRegis)->first();
+        // dd($user);
+        // return $user;
         if ($user != null) {
-            if ($user->password == $req->passwordRegis) {
-                return $user;
-            } else {
-                return response()->json([
-                    "error" => true,
-                    "message" => "Password doesn't match"
-                ]);
-            }
+            return response()->json([
+                "error" => false,
+                "message" => "Confirmed"
+            ]);
         } else {
             return response()->json([
                 "error" => true,
-                "message" => "Password doesn't exist"
+                "message" => "ID number or password doesn't match"
             ]);
         }
     }
 
-    public function create()
+    public function borrowItems(Request $req)
     {
-        // code here
+        dd($req->all());
     }
 
     public function update($id)

@@ -29,6 +29,7 @@ class ItemFactory extends Factory
             'category' => "eletronik",
             'quantity' => 5,
             'image_path' => 'computer.jpg',
+            'status' => 'ready',
         ];
     }
 }

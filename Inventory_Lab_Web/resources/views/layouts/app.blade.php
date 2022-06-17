@@ -22,7 +22,7 @@
         <li><a href="#">General</a></li>
           <ul>
               <li><a href="{{route('item.index')}}" class="{{ (request()->is('item*')) ? 'active' : '' }}"><i class="bi bi-box-seam"></i>&nbsp;&nbsp;&nbsp;Items</a></li>
-              <li><a href="#"><i class="bi bi-box-arrow-down"></i>&nbsp;&nbsp;&nbsp;Borrowing</a></li>
+              <li><a href="/borrowing-form"><i class="bi bi-box-arrow-down"></i>&nbsp;&nbsp;&nbsp;Borrowing</a></li>
             <li><a href="#"><i class="bi bi-box-arrow-in-up"></i>&nbsp;&nbsp;&nbsp;Returning</a></li>
           </ul>
         <li><a href="#">Administrator</a></li>

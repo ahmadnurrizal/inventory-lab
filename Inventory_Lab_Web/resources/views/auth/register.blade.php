@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,14 +23,24 @@
             <h1 class="mx-auto title">Register</h1>
             <h1 class="mx-auto title">Form</h1>
             <hr>
-            <form>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <form action="{{ route('register') }}"  method="POST">
+                @csrf
                 <!-- input Name -->
                 <div class="mb-3 row">
                     <div class="icon-box">
                         <i class="bi bi-person" style="color: white;"></i>
                     </div>
                     <div class="col-10">
-                        <input type="text" id="nameRegis" placeholder="Name" />
+                        <input type="text" name="nameRegis" id="nameRegis" placeholder="Name" required/>
                     </div>
                 </div>
                 <!-- input E-mail -->
@@ -38,7 +49,7 @@
                         <i class="bi bi-envelope" style="color: white;"></i>
                     </div>
                     <div class="col-10">
-                        <input type="email" id="emailRegis" placeholder="E-mail" />
+                        <input type="email" name="email" id="emailRegis" placeholder="E-mail" required/>
                     </div>
                 </div>
                 <!-- input password -->
@@ -47,16 +58,7 @@
                         <i class="bi bi-file-lock2" style="color: white;"></i>
                     </div>
                     <div class="col-10">
-                        <input type="password" id="passwordRegis" placeholder="Password">
-                    </div>
-                </div>
-                <!-- input id number -->
-                <div class="mb-3 row">
-                    <div class=" icon-box">
-                        <i class="bi bi-person-badge" style="color: white;"></i>
-                    </div>
-                    <div class="col-10">
-                        <input type="text" id="idNumberRegis" placeholder="ID Number">
+                        <input type="password" name="passwordRegis" id="passwordRegis" placeholder="Password" required>
                     </div>
                 </div>
                 <!-- input phone number -->
@@ -65,7 +67,7 @@
                         <i class="bi bi-telephone" style="color: white;"></i>
                     </div>
                     <div class="col-10">
-                        <input type="text" id="phoneNumberRegis" placeholder="Phone Number">
+                        <input type="string" name="phoneNumberRegis" id="phoneNumberRegis" placeholder="Phone Number" required>
                     </div>
                 </div>
                 <!-- input address -->
@@ -74,7 +76,7 @@
                         <i class="bi bi-geo-alt" style="color: white;"></i>
                     </div>
                     <div class="col-10">
-                        <input type="text" id="addressRegis" placeholder="Address">
+                        <input type="text" name="addressRegis" id="addressRegis" placeholder="Address" required>
                     </div>
                 </div>
 
