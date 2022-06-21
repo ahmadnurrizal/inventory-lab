@@ -21,15 +21,15 @@ class ItemFactory extends Factory
      */
     public function definition()
     {
-        // $faker = \Faker\Factory::create('id_ID'); // more information : https://github.com/fzaninotto/Faker
+        $faker = \Faker\Factory::create('id_ID'); // more information : https://github.com/fzaninotto/Faker
         return [
-            'name' => "Computer",
+            'item_name' => "Computer",
             'description' => "hahah hehehhooo",
-            'stored_location' => "lemari besi",
-            'category' => "eletronik",
+            'category' => $this->faker->randomElement(['PC','Kursi','Meja','Sensor','Controller','etc']),
             'quantity' => 5,
-            'image_path' => 'computer.jpg',
-            'status' => 'ready',
+            'storage' => "lemari besi",
+            'image_url' => 'computer.jpg',
+            'status' => $this->faker->randomElement(['Ready','Borrowed','Maintenance']),
         ];
     }
 }

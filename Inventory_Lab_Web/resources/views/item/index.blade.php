@@ -1,22 +1,8 @@
-<!-- <!DOCTYPE html>
-<html>
-
-<head>
-    <title>Items</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</head> -->
+@extends('layouts.app')
 @section('assets_css')
 <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 @endsection
-
-@extends('layouts.app')
 
 <body>
     @section('content')
@@ -32,7 +18,7 @@
             </div>
             <div class="col">
                 <button style="float: right;" type="button" id="tambah-btn" name="tambah"
-                    class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modal">Add Item</button>
+                    class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modal">Add Item</button>
             </div>
         </div>
         <table class="table table-bordered yajra-datatable" id="datatables-ajax">
@@ -94,10 +80,10 @@
                             <div class="col">
                                 <input type="file" class="form-control" required name="image" id="image">
                             </div>
-                            <!-- <div class="col">
+                            <div class="col">
                                 <input type="text" id="quantity" class="form-control"
                                     placeholder="Ceritanya gambar sihhh" aria-label="Quantity">
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -110,11 +96,6 @@
     @endsection
 </body>
 
-
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script> -->
-<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
-
 @section('assets_js')
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
@@ -124,22 +105,17 @@
             const reset_form = $('#form-data')[0];
             reset_form.reset()
             document.getElementById("id").value = null;
+            $("#modal-title").html("Add Data Item")
         });
-
         var table = $('.yajra-datatable').DataTable({
-            // fnDrawCallback: function (oSettings) {
-            //     $('.dataTables_filter').each(function () {
-            //         $(this).append('<button style="margin-left:1rem;margin-bottom:5px" type="button" id="tambah-btn" name="tambah" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modal">Add Item</button>');
-            //     });
-            // },
             processing: true,
             serverSide: true,
             ajax: "{{ route('items.list') }}",
             columns: [
                 // {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                { data: 'id', name: 'id' },
+                { data: 'item_id', name: 'item_id' },
                 { data: 'image', name: 'image' },
-                { data: 'name', name: 'name' },
+                { data: 'item_name', name: 'item_name' },
                 { data: 'quantity', name: 'quantity' },
                 {
                     data: 'action',
@@ -150,14 +126,11 @@
             ]
         });
     });
-
     Array.prototype.filter.call($('#form-data'), function (form) {
         form.addEventListener('submit', function (event) {
             let formData = new FormData(this);
             event.preventDefault();
-
             let item_id = $("#id").val();
-
             var url = (item_id !== undefined && item_id !== null) && item_id ? "{{ url('item')}}" + "/" + item_id : "{{ url('item')}}";
             $.ajax({
                 url: url,
@@ -169,26 +142,17 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    setTimeout(function () { $('#datatables-ajax').DataTable().ajax.reload(); }, 1000);
-
-                    var reset_form = $('#form-data')[0];
-                    $(reset_form).removeClass('was-validated');
-                    reset_form.reset();
                     $('#modal').modal('hide');
-                    $("#modal-title").html("Add Data Item")
-                    $("#id").val()
-                    alert("berhasil add item")
+                    setTimeout(function () { $('#datatables-ajax').DataTable().ajax.reload(); }, 1000);
+                    // alert("berhasil add item")
                 },
                 error: function (xhr) {
                     console.log(xhr.responseText);
                 }
             });
-
         });
     });
-
     function edit_data(e) {
-
         $('#modal').modal('show')
         var url = "{{url('item')}}" + "/" + e.attr('data-id') + "/" + "edit"
         $.ajax({
@@ -198,18 +162,37 @@
             success: function (result) {
                 console.log(result)
                 $("#modal-title").html("Edit Data item")
-                $('#id').val(result.id).trigger('change');
-                $('#name').val(result.name);
+                $('#id').val(result.item_id).trigger('change');
+                $('#name').val(result.item_name);
                 $('#description').val(result.description);
                 $('#category').val(result.category);
                 $('#quantity').val(result.quantity);
-                $('#stored_location').val(result.stored_location);
-
+                $('#stored_location').val(result.storage);
             },
             error: function (xhr) {
                 console.log(xhr.responseText);
             }
-
+        });
+    }
+    function delete_data(e) {
+        var id = e.attr('data-id');
+        jQuery.ajax({
+            url: "{{url('/item')}}" + "/" + id,
+            type: 'post',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                '_method': 'delete'
+            },
+            success: function (result) {
+                if (result.error) {
+                    alert('gagal delete')
+                } else {
+                    setTimeout(function () { $('#datatables-ajax').DataTable().ajax.reload(); }, 1000);
+                    alert('berhasil delete')
+                }
+            }
         });
     }
 </script>

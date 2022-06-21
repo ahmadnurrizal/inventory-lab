@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateBorrowingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('borrowings', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->integer('borrowing_id', true);
+            $table->integer('user_id')->index('FK_user_id');
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('return_at');
+            $table->enum('status', ['Returned', 'Late_Returned', 'Borrowed', '']);
         });
     }
 
@@ -28,4 +31,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('borrowings');
     }
-};
+}

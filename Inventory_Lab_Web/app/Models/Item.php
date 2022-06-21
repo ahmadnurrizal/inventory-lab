@@ -1,24 +1,53 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Haruncpi\LaravelIdGenerator\IdGenerator;
 
+/**
+ * Class Item
+ * 
+ * @property int $item_id
+ * @property string $item_name
+ * @property string $description
+ * @property string $category
+ * @property int $quantity
+ * @property string $storage
+ * @property string $image_url
+ * @property string $status
+ * @property Carbon $created_at
+ * 
+ * @property BorrowingItem $borrowing_item
+ *
+ * @package App\Models
+ */
 class Item extends Model
 {
-    use HasFactory;
+	protected $table = 'items';
+	protected $primaryKey = 'item_id';
+	public $timestamps = false;
 
-    protected $guarded = [];
-    protected $primaryKey = 'id';
-    public $incrementing = false;  // You most probably want this too
+	protected $casts = [
+		'quantity' => 'int'
+	];
 
-    public static function boot()
-    {
-        parent::boot();
-        self::creating(function ($model) {
-            $model->id = IdGenerator::generate(['table' => 'items', 'length' => 6, 'prefix' => date('y')]);
-        });
-    }
+	protected $fillable = [
+		'item_name',
+		'description',
+		'category',
+		'quantity',
+		'storage',
+		'image_url',
+		'status'
+	];
+
+	public function borrowing_item()
+	{
+		return $this->hasOne(BorrowingItem::class);
+	}
 }

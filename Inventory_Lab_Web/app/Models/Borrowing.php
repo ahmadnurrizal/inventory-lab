@@ -1,29 +1,55 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Item;
 
+/**
+ * Class Borrowing
+ * 
+ * @property int $borrowing_id
+ * @property int $user_id
+ * @property Carbon $created_at
+ * @property Carbon $return_at
+ * @property string $status
+ * 
+ * @property BorrowingItem $borrowing_item
+ * @property User $user
+ *
+ * @package App\Models
+ */
 class Borrowing extends Model
 {
-    use HasFactory;
-    protected $id ='id';
-    protected $fillable = [
-      'borrower',
-      'borrowing_date',
-      'returning_date',
-      'status',
-      'fine'
-    ]
+	protected $table = 'borrowings';
+	protected $primaryKey = 'borrowing_id';
+	public $timestamps = false;
 
-    public function items(){
-      return $this->belongToMany(Item::class);
-    }
+	protected $casts = [
+		'user_id' => 'int'
+	];
 
-    protected $cast = [
-      'borrowing_date' => 'datetime',
-      'returning_date' => 'datetime',
-    ]
+	protected $dates = [
+		'return_at'
+	];
+
+	protected $fillable = [
+		'user_id',
+		'return_at',
+		'status'
+	];
+
+	public function borrowing_item()
+	{
+		return $this->belongsTo(BorrowingItem::class, 'borrowing_id', 'borrowing_id');
+	}
+
+	public function user()
+	{
+		return $this->hasOne(User::class, 'user_id', 'user_id');
+	}
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,15 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('items', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('image_path');
-            $table->string('category');
-            $table->string('stored_location');
+            $table->integer('item_id', true);
+            $table->string('item_name', 64);
             $table->text('description');
-            $table->tinyInteger('quantity');
-            $table->string('status');
-            $table->timestamps();
+            $table->enum('category', ['PC', 'Kursi', 'Meja', 'Sensor', 'Controller', 'etc']);
+            $table->integer('quantity');
+            $table->string('storage', 64);
+            $table->string('image_url', 128);
+            $table->enum('status', ['Ready', 'Borrowed', 'Maintenance', '']);
+            $table->dateTime('created_at')->useCurrent();
         });
     }
 
@@ -35,4 +35,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('items');
     }
-};
+}
