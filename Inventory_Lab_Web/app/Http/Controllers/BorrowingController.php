@@ -59,7 +59,7 @@ class BorrowingController extends Controller
             ]);
         }
         // dd($req->all());
-        return view('admin.dashboard');
+        return view('dashboard');
     }
 
     public function update($id)
