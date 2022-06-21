@@ -103,8 +103,6 @@ class AuthController extends Controller
             'address' =>  $request->addressRegis,
         ]);
 
-        // // creating token
-        $token = $user->createToken('myapptoken')->plainTextToken;
 
         return view('dashboard');
     }

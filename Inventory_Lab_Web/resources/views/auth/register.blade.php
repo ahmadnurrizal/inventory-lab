@@ -25,6 +25,15 @@
                         <input type="text" name="nameRegis" id="nameRegis" placeholder="Name" required/>
                     </div>
                 </div>
+                 <!-- input NIM -->
+                 <div class="mb-3 row">
+                    <div class="icon-box">
+                        <i class="bi bi-person" style="color: white;"></i>
+                    </div>
+                    <div class="col-10">
+                        <input type="text" name="nim" id="nim" placeholder="NIM" required/>
+                    </div>
+                </div>
                 <!-- input E-mail -->
                 <div class="mb-3 row">
                     <div class="icon-box">
@@ -67,3 +76,4 @@
         </div>
     </div>
 @endsection
+

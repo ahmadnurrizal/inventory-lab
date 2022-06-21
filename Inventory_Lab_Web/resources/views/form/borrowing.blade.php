@@ -30,6 +30,15 @@
             pointer-events: none;
             opacity: 0.4;
         }
+
+        .dataTables_scrollHeadInner{
+            box-sizing: none !important;
+            width: 100% !important;
+            padding-right: 0px;
+        }
+        table.dataTable{
+            width: 100% !important;
+        }
     </style>
 
     <title>Register</title>
@@ -74,28 +83,29 @@
                 </div>
 
                 <!-- Borrowed Items -->
-                <div class="col" id="borrowing-form">
+                <div class="col-md-6" id="borrowing-form">
                     <form action="{{ url('/borrow') }}" method="post">
                         @csrf
+                        <input type="text" name="nim_borrow" id="nim_borrow" hidden>
                         <div class="card px-5 py-4 mx-auto" style="border-radius: 20px; ">
 
                             <table id="datatable" class="table table-striped table-bordered nowrap">
                                 <thead>
                                     <tr>
-                                        <th scope=" col">ID Item</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Category</th>
-                                        <th scope="col">Check</th>
+                                        <th scope="col-md-2">ID Item</th>
+                                        <th scope="col-md-2">Name</th>
+                                        <th scope="col-md-2">Category</th>
+                                        <th scope="col-md-2">Check</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($items as $item)
                                     <tr>
-                                        <td>{{$item->id}}</td>
-                                        <td>{{$item->name}}</td>
+                                        <td>{{$item->item_id}}</td>
+                                        <td>{{$item->item_name}}</td>
                                         <td>{{$item->category}}</td>
                                         <td><input style="height: 20px;box-shadow: none;" type="checkbox"
-                                                value="{{$item->id}}" name="itemList[]"></td>
+                                                value="{{$item->item_id}}" name="itemList[]"></td>
                                     </tr>
                                     @endforeach
 
@@ -104,8 +114,8 @@
 
                             <div class="row mt-3">
                                 <div class="row d-flex justify-content-between align-items-center">
-                                    <div class="col-4"></div>
-                                    <div class="col-4">
+                                    <div class="col-2"></div>
+                                    <div class="col-6">
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-calendar-day"></i></span>
                                             <input type="date" name="date" class="form-control">
@@ -169,6 +179,7 @@
                 success: function (response) {
                     if (!response.error) {
                         $('#borrowing-form').show()
+                        $('#nim_borrow').val($('#idNumberRegis').val())
                     } else {
                         var reset_form = $('#form-data')[0];
                         $(reset_form).removeClass('was-validated');

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Borrowing;
+use App\Models\BorrowingItem;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -28,7 +30,7 @@ class BorrowingController extends Controller
             'idNumberRegis' => 'required',
             'passwordRegis' => 'required'
         ]);
-        $user = User::where('id', $req->idNumberRegis)->first();
+        $user = User::where('user_id', $req->idNumberRegis)->first();
         // dd($user);
         // return $user;
         if ($user != null) {
@@ -46,7 +48,18 @@ class BorrowingController extends Controller
 
     public function borrowItems(Request $req)
     {
-        dd($req->all());
+        $borrowing = Borrowing::create([
+            'user_id' => $req->nim_borrow,
+            'return_at' => $req->date
+        ]);
+        foreach ($req->itemList as $item) {
+            BorrowingItem::create([
+                'borrowing_id' =>  $borrowing->borrowing_id,
+                'item_id' => $item
+            ]);
+        }
+        // dd($req->all());
+        return view('admin.dashboard');
     }
 
     public function update($id)
