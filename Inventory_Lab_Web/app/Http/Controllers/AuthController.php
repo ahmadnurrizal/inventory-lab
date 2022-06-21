@@ -82,4 +82,30 @@ class AuthController extends Controller
     {
         return view('auth/register');
     }
+
+    public function regisAction(Request $request)
+    {
+        // dd($request->all());
+        $fields = $request->validate([
+            'nameRegis' => 'required|string',
+            'email' => 'required|string|unique:users,email',
+            'passwordRegis' => 'required|string',
+            'phoneNumberRegis' => 'required',
+            'addressRegis' => 'required'
+        ]);
+
+
+        $user = User::create([
+            'user_name' => $request->nameRegis,
+            'email' => $request->email,
+            'password' =>  $request->passwordRegis,
+            'phone_number' =>  $request->phoneNumberRegis,
+            'address' =>  $request->addressRegis,
+        ]);
+
+        // // creating token
+        $token = $user->createToken('myapptoken')->plainTextToken;
+
+        return view('dashboard');
+    }
 }
