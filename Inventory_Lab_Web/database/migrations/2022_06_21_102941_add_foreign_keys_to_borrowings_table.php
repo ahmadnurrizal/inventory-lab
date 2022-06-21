@@ -14,7 +14,6 @@ class AddForeignKeysToBorrowingsTable extends Migration
     public function up()
     {
         Schema::table('borrowings', function (Blueprint $table) {
-            $table->foreign(['borrowing_id'], 'borrowings_ibfk_1')->references(['borrowing_id'])->on('borrowing_items')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->foreign(['user_id'], 'borrowings_ibfk_2')->references(['user_id'])->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
@@ -27,7 +26,6 @@ class AddForeignKeysToBorrowingsTable extends Migration
     public function down()
     {
         Schema::table('borrowings', function (Blueprint $table) {
-            $table->dropForeign('borrowings_ibfk_1');
             $table->dropForeign('borrowings_ibfk_2');
         });
     }
