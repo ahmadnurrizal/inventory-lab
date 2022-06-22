@@ -10,12 +10,12 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class BorrowingItem
- * 
+ *
  * @property int $borrowing_id
  * @property int $item_id
- * 
- * @property Item $item
+ *
  * @property Borrowing $borrowing
+ * @property Item $item
  *
  * @package App\Models
  */
@@ -35,13 +35,13 @@ class BorrowingItem extends Model
 		'item_id'
 	];
 
+	public function borrowing()
+	{
+		return $this->belongsTo(Borrowing::class);
+	}
+
 	public function item()
 	{
 		return $this->belongsTo(Item::class);
-	}
-
-	public function borrowing()
-	{
-		return $this->hasOne(Borrowing::class, 'borrowing_id', 'borrowing_id');
 	}
 }

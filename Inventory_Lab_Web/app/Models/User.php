@@ -6,11 +6,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class User
- * 
+ *
  * @property int $user_id
  * @property string $user_name
  * @property string $email
@@ -18,13 +19,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $phone_number
  * @property string $address
  * @property string $role
- * 
+ *
  * @property Borrowing $borrowing
  *
  * @package App\Models
  */
 class User extends Model
 {
+	use HasFactory;
 	protected $table = 'users';
 	protected $primaryKey = 'user_id';
 	public $timestamps = false;
@@ -44,6 +46,6 @@ class User extends Model
 
 	public function borrowing()
 	{
-		return $this->belongsTo(Borrowing::class, 'user_id', 'user_id');
+		return $this->belongsTo(Borrowing::class, 'borrowing_id');
 	}
 }

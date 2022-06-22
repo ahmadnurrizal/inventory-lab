@@ -23,13 +23,13 @@
         <li><a href="#">General</a></li>
           <ul>
               <li><a href="{{route('item.index')}}" class="{{ (request()->is('item*')) ? 'active' : '' }}"><i class="bi bi-box-seam"></i>&nbsp;&nbsp;&nbsp;Items</a></li>
-              <li><a href="/borrowing-form"><i class="bi bi-box-arrow-down"></i>&nbsp;&nbsp;&nbsp;Borrowing</a></li>
-            <li><a href="#"><i class="bi bi-box-arrow-in-up"></i>&nbsp;&nbsp;&nbsp;Returning</a></li>
+              <li><a href="{{route('borrowing.index')}}" class="{{ (request()->is('borrowing*')) ? 'active' : '' }}"><i class="bi bi-box-arrow-down"></i>&nbsp;&nbsp;&nbsp;Borrowing</a></li>
+            <li><a href="{{route('returning.index')}}" class="{{ (request()->is('returning*')) ? 'active' : '' }}"><i class="bi bi-box-arrow-in-up"></i>&nbsp;&nbsp;&nbsp;Returning</a></li>
           </ul>
         <li><a href="#">Administrator</a></li>
           <ul>
-            <li><a href="#"><i class="bi bi-person-badge"></i>&nbsp;&nbsp;&nbsp;Backend User</a></li>
-            <li><a href="#"><i class="bi bi-person-circle"></i>&nbsp;&nbsp;&nbsp;Borrower</a></li>
+            <li><a href="{{route('backendUser.index')}}" class="{{ (request()->is('backendUser*')) ? 'active' : '' }}"><i class="bi bi-person-badge"></i>&nbsp;&nbsp;&nbsp;Backend User</a></li>
+            <li><a href="{{route('borrower.index')}}" class="{{ (request()->is('borrower*')) ? 'active' : '' }}"><i class="bi bi-person-circle"></i>&nbsp;&nbsp;&nbsp;Borrower</a></li>
             <li><a href="#"><i class="bi bi-receipt"></i>&nbsp;&nbsp;&nbsp;Report</a></li>
           </ul>
       </ul>
