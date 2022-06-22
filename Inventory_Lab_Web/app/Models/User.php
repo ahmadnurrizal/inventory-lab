@@ -26,26 +26,27 @@ use Illuminate\Database\Eloquent\Model;
  */
 class User extends Model
 {
-	use HasFactory;
-	protected $table = 'users';
-	protected $primaryKey = 'user_id';
-	public $timestamps = false;
+    use HasFactory;
+    protected $table = 'users';
+    protected $primaryKey = 'user_id';
+    public $timestamps = false;
 
-	protected $hidden = [
-		'password'
-	];
+    protected $hidden = [
+        'password'
+    ];
 
-	protected $fillable = [
-		'user_name',
-		'email',
-		'password',
-		'phone_number',
-		'address',
-		'role'
-	];
+    protected $fillable = [
+        'user_name',
+        'user_id',
+        'email',
+        'password',
+        'phone_number',
+        'address',
+        'role'
+    ];
 
-	public function borrowing()
-	{
-		return $this->belongsTo(Borrowing::class, 'borrowing_id');
-	}
+    public function borrowing()
+    {
+        return $this->belongsTo(Borrowing::class, 'borrowing_id');
+    }
 }

@@ -26,7 +26,6 @@ class ItemFactory extends Factory
             'item_name' => "Computer",
             'description' => "hahah hehehhooo",
             'category' => $this->faker->randomElement(['PC', 'Kursi', 'Meja', 'Sensor', 'Controller', 'etc']),
-            'quantity' => 5,
             'storage' => "lemari besi",
             'image_url' => 'computer.jpg',
             'status' => $this->faker->randomElement(['Ready', 'Borrowed', 'Maintenance']),

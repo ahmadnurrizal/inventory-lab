@@ -47,8 +47,8 @@ Route::get('/backendUser/list', [UserController::class, 'getBackendUsers'])->nam
 Route::get('/borrower', [UserController::class, 'borrowerUserIndex'])->name('borrower.index');
 Route::get('/borrower/list', [UserController::class, 'getBorrowerUsers'])->name('user.Borrower');
 
-Route::get('/login', [AuthController::class, 'login']);
-Route::get('/register', [AuthController::class, 'regis']);
+Route::get('/login', [AuthController::class, 'loginIndex']);
+Route::get('/register', [AuthController::class, 'regisIndex']);
 Route::post('/register', [AuthController::class, 'regisAction'])->name('register');
 Route::post('/login', [AuthController::class, 'loginAction'])->name('login');
 

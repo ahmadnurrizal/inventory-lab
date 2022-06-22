@@ -29,7 +29,6 @@
                     <th>Item ID</th>
                     <th>Image</th>
                     <th>Item Name</th>
-                    <th>Quantity</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -73,10 +72,6 @@
                               <option value="etc">etc</option>
                               </select>
                             </div>
-                            <div class="col">
-                                <input type="number" name="quantity" id="quantity" class="form-control"
-                                    placeholder="Quantity" aria-label="Quantity" required>
-                            </div>
                         </div>
                         <div class="mb-3 row">
                             <div class="col">
@@ -86,11 +81,7 @@
                         </div>
                         <div class="mb-3 row">
                             <div class="col">
-                                <input type="file" class="form-control" required name="image" id="image">
-                            </div>
-                            <div class="col">
-                                <input type="text" id="quantity" class="form-control"
-                                    placeholder="Ceritanya gambar sihhh" aria-label="Quantity">
+                                <input type="file" class="form-control" name="image" id="image">
                             </div>
                         </div>
                     </div>
@@ -124,7 +115,6 @@
                 { data: 'item_id', name: 'item_id' },
                 { data: 'image', name: 'image' },
                 { data: 'item_name', name: 'item_name' },
-                { data: 'quantity', name: 'quantity' },
                 {
                     data: 'action',
                     name: 'action',
@@ -174,7 +164,6 @@
                 $('#name').val(result.item_name);
                 $('#description').val(result.description);
                 $('#category').val(result.category);
-                $('#quantity').val(result.quantity);
                 $('#stored_location').val(result.storage);
             },
             error: function (xhr) {

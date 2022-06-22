@@ -18,7 +18,6 @@ class CreateItemsTable extends Migration
             $table->string('item_name', 64);
             $table->text('description');
             $table->enum('category', ['PC', 'Kursi', 'Meja', 'Sensor', 'Controller', 'etc']);
-            $table->integer('quantity');
             $table->string('storage', 64);
             $table->string('image_url', 128);
             $table->enum('status', ['Ready', 'Borrowed', 'Maintenance', '']);

@@ -8,6 +8,7 @@ use DataTables;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+
 /**
  * @authenticated
  *
@@ -173,7 +174,6 @@ class ItemController extends Controller
         Item::create([
             'item_name' => $request->item_name,
             'description' => $request->description,
-            'quantity' => $request->quantity,
             'storage' => $request->storage,
             'category' => $request->category,
             'image_url' => $newImageName,
@@ -203,7 +203,7 @@ class ItemController extends Controller
         if ($request->file('image')) {
             $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $newImageName);
-            $input['image_path'] = $newImageName;
+            $input['image_url'] = $newImageName;
         }
 
         unset($input['image']);
@@ -216,33 +216,33 @@ class ItemController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
-    {
-        $input = $request->all();
-        $validate = Validator::make($input, [
-            'image' => 'mimes:png,jpg,jpeg|max:1024',
-        ]);
+    // public function update(Request $request, $id)
+    // {
+    //     $input = $request->all();
+    //     $validate = Validator::make($input, [
+    //         'image' => 'mimes:png,jpg,jpeg|max:1024',
+    //     ]);
 
-        if ($validate->fails()) {
-            return response()->json([
-                'error' => $validate->errors()->toArray()
-            ]);
-        }
-        if ($request->file('image')) {
-            $newImageName = time() . '-' . $request->item_name . '.' . $request->image->extension();
-            $request->image->move(public_path('images'), $newImageName);
-            $input['image_path'] = $newImageName;
-        }
+    //     if ($validate->fails()) {
+    //         return response()->json([
+    //             'error' => $validate->errors()->toArray()
+    //         ]);
+    //     }
+    //     if ($request->file('image')) {
+    //         $newImageName = time() . '-' . $request->item_name . '.' . $request->image->extension();
+    //         $request->image->move(public_path('images'), $newImageName);
+    //         $input['image_path'] = $newImageName;
+    //     }
 
-        unset($input['image']);
-        $item = Item::find($id);
-        $item->update($input);
+    //     unset($input['image']);
+    //     $item = Item::find($id);
+    //     $item->update($input);
 
-        return response()->json([
-            "error" => false,
-            "message" => "Successfuly update item!"
-        ]);
-    }
+    //     return response()->json([
+    //         "error" => false,
+    //         "message" => "Successfuly update item!"
+    //     ]);
+    // }
 
     public function destroy($id)
     {

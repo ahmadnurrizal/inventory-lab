@@ -20,17 +20,19 @@ class UserFactory extends Factory
         return [
             'user_name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'password'=>$this->faker->regexify('[A-Z]{5}[0-4]{3}'),
-            'phone_number'=>$this->faker->unique()->randomNumber(5, true),
-            'address'=>$this->faker->address,
-            'role'=>$this->faker->randomElement(['Mahasiswa',
-                                          'Pembina Lab',
-                                          'Kordinator Asisten',
-                                          'Wakil Kordinator Asisten',
-                                          'Humas',
-                                          'Sekretaris',
-                                          'Inventaris',
-                                          'Bendahara'])
+            'password' => bcrypt('password'),
+            'phone_number' => $this->faker->unique()->randomNumber(5, true),
+            'address' => $this->faker->address,
+            'role' => $this->faker->randomElement([
+                'Mahasiswa',
+                'Pembina Lab',
+                'Kordinator Asisten',
+                'Wakil Kordinator Asisten',
+                'Humas',
+                'Sekretaris',
+                'Inventaris',
+                'Bendahara'
+            ])
         ];
     }
 }
