@@ -49,7 +49,7 @@
                         <input type="hidden" name="id" id="id" value="">
                         <div class="mb-3 row">
                             <div class="col">
-                                <input type="text" name="name" id="name" class="form-control" placeholder="Item name"
+                                <input type="text" name="item_name" id="name" class="form-control" placeholder="Item name"
                                     aria-label="Item name" required>
                             </div>
                         </div>
@@ -62,8 +62,14 @@
                         </div>
                         <div class="mb-3 row">
                             <div class="col">
-                                <input type="text" name="category" id="category" class="form-control"
-                                    placeholder="Category" aria-label="Category" required>
+                              <select name="category" id="category" class="form-control" placeholder="Category" aria-label="Category" required>
+                              <option value="PC">PC</option>
+                              <option value="Kursi">Kursi</option>
+                              <option value="Meja">Meja</option>
+                              <option value="Sensor">Sensor</option>
+                              <option value="Controller">Controller</option>
+                              <option value="etc">etc</option>
+                              </select>
                             </div>
                             <div class="col">
                                 <input type="number" name="quantity" id="quantity" class="form-control"
@@ -72,7 +78,7 @@
                         </div>
                         <div class="mb-3 row">
                             <div class="col">
-                                <input type="text" name="stored_location" id="stored_location" class="form-control"
+                                <input type="text" name="storage" id="stored_location" class="form-control"
                                     placeholder="Stored Location" aria-label="Stored Location" required>
                             </div>
                         </div>

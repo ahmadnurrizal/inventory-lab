@@ -2,24 +2,55 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Borrowing;
+use App\Models\BorrowingItem;
 use App\Models\User;
+use DataTables;
 use Illuminate\Http\Request;
 
 class BorrowingController extends Controller
 {
-    public function view()
+    public function borrowingIndex()
     {
-        // code here
+      return view('/borrowing/index');
     }
 
-    public function loadForm()
+    public function returningIndex()
     {
-        // code herez
+      return view('/returning/index');
     }
 
-    public function getAll()
+    public function getBorrowing(Request $request, $flag)
     {
-        // code here
+      if ($request->ajax()) {
+        $borrowing = null;
+        if($flag == "returning"){
+          $borrowings = Borrowing::where('status', '=', 'Returned')->orWhereNull('status')->get();
+        }else if ($flag == "borrowing"){
+          $borrowings = Borrowing::where('status', '!=', 'Returned')->orWhereNull('status')->get();
+        }
+        return DataTables::of($borrowings)
+            ->addIndexColumn()
+            ->addColumn('user_name', function($borrowing){
+              return User::find($borrowing->user_id)->user_name;
+            })
+            ->addColumn('items', function($borrowing){
+              $strings = "";
+              foreach ($borrowing->with('items')->get()[0]->items as $item) {
+                $strings .= $item->item_name ." (.$item->item_id.), ";
+              }
+              return $strings;
+            })
+            ->addColumn('action', function ($borrowing) {
+                $button = '<a data-id="' . $borrowing->borrowing_id . '" class="edit btn btn-success btn-sm" id="btn-invoice"> <i class="bi bi-receipt"></i> Invoice </a>';
+                $button .= '&nbsp;&nbsp;';
+                return $button;
+            })->addColumn('status', function($borrowing){
+              return $borrowing->status;
+            })
+            ->rawColumns(['user_name','items','status','action'])
+            ->make(true);
+      }
     }
 
     public function checkUserData(Request $req)
@@ -44,9 +75,10 @@ class BorrowingController extends Controller
         }
     }
 
-    public function borrowItems(Request $req)
-    {
-        dd($req->all());
+    public function invoice(Request $request, $id){
+      $borrowing = json_decode(Borrowing::with('items', 'user')->get()->find($id));
+      return view('borrowing/invoice')
+                ->with('borrowing', $borrowing);
     }
 
     public function update($id)

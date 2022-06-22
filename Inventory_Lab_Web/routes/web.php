@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BorrowingController;
@@ -29,6 +30,22 @@ Route::get('/item/{id}/edit', [ItemController::class, 'show']);
 Route::post('/item/{id}', [ItemController::class, 'update']);
 Route::delete('/item/{id}', [ItemController::class, 'destroy']);
 Route::get('/item/list', [ItemController::class, 'getItems'])->name('items.list');
+
+Route::get('/borrowing', [BorrowingController::class, 'borrowingIndex'])->name('borrowing.index');
+Route::get('/borrowing/{flag}', [BorrowingController::class, 'getBorrowing'])->name('borrowing.list');
+Route::get('/borrowing/invoice/{id}', [BorrowingController::class, 'invoice'])->name('borrowing.invoice');
+
+Route::get('/returning', [BorrowingController::class, 'returningIndex'])->name('returning.index');
+
+Route::get('/backendUser', [UserController::class, 'backendUserIndex'])->name('backendUser.index');
+Route::post('/backendUser', [UserController::class, 'store']);
+Route::get('/backendUser/{id}/show', [UserController::class, 'show']);
+Route::post('/backendUser/{id}', [UserController::class, 'update']);
+Route::delete('/backendUser/{id}', [UserController::class, 'destroy']);
+Route::get('/backendUser/list', [UserController::class, 'getBackendUsers'])->name('user.BackendUser');
+
+Route::get('/borrower', [UserController::class, 'borrowerUserIndex'])->name('borrower.index');
+Route::get('/borrower/list', [UserController::class, 'getBorrowerUsers'])->name('user.Borrower');
 
 Route::get('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'regis']);

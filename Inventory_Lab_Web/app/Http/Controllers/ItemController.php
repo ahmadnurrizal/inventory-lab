@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use DataTables;
+use Exception;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Validator;
 /**
  * @authenticated
  *
@@ -170,12 +171,12 @@ class ItemController extends Controller
         $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
 
         Item::create([
-            'name' => $request->name,
+            'item_name' => $request->item_name,
             'description' => $request->description,
             'quantity' => $request->quantity,
-            'stored_location' => $request->stored_location,
+            'storage' => $request->storage,
             'category' => $request->category,
-            'image_path' => $newImageName,
+            'image_url' => $newImageName,
         ]);
 
         // saving image to /public/images directory
@@ -189,6 +190,34 @@ class ItemController extends Controller
 
     public function uploadFile(Request $request)
     {
+    }
+
+    public function update(Request $request, $id)
+    {
+        $input = $request->all();
+        $validate = Validator::make($input, [
+            'image' => 'mimes:png,jpg,jpeg|max:1024',
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'error' => $validate->errors()->toArray()
+            ]);
+        }
+        if ($request->file('image')) {
+            $newImageName = time() . '-' . $request->item_name . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $newImageName);
+            $input['image_path'] = $newImageName;
+        }
+
+        unset($input['image']);
+        $item = Item::find($id);
+        $item->update($input);
+
+        return response()->json([
+            "error" => false,
+            "message" => "Successfuly update item!"
+        ]);
     }
 
     public function updateStatus($id, $status)
