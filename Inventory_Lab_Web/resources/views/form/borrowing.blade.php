@@ -31,12 +31,13 @@
             opacity: 0.4;
         }
 
-        .dataTables_scrollHeadInner{
+        .dataTables_scrollHeadInner {
             box-sizing: none !important;
             width: 100% !important;
             padding-right: 0px;
         }
-        table.dataTable{
+
+        table.dataTable {
             width: 100% !important;
         }
     </style>
@@ -114,14 +115,19 @@
 
                             <div class="row mt-3">
                                 <div class="row d-flex justify-content-between align-items-center">
-                                    <div class="col-2"></div>
                                     <div class="col-6">
+                                        <span>Date Return : </span>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-calendar-day"></i></span>
                                             <input type="date" name="date" class="form-control">
                                         </div>
+
                                     </div>
-                                    <div class="col-4">
+                                    <!-- <div class="col-3">
+
+                                    </div> -->
+                                    <div class="col-2"></div>
+                                    <div class="col-2">
                                         <button type="submit" class="btn-login-register float-start">Submit</button>
                                     </div>
                                 </div>

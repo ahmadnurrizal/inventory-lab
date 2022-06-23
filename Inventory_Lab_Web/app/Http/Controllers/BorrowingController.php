@@ -7,6 +7,7 @@ use App\Models\BorrowingItem;
 use App\Models\User;
 use DataTables;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BorrowingController extends Controller
 {
@@ -90,7 +91,8 @@ class BorrowingController extends Controller
             ]);
         }
         // dd($req->all());
-        return view('dashboard');
+        Alert::success('Congrats', 'Your request has been sent, Please contact lab assistant to approve');
+        return view('welcome');
     }
 
     public function invoice(Request $request, $id)

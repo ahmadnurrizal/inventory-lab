@@ -77,7 +77,6 @@ class AuthController extends Controller
         ]);
 
         Alert::success('Congrats', 'You\'ve Successfully Registered');
-        // sleep(1);
         return view('welcome');
     }
 }
