@@ -23,35 +23,39 @@ class BorrowingController extends Controller
 
     public function getBorrowing(Request $request, $flag)
     {
-      if ($request->ajax()) {
-        $borrowing = null;
-        if($flag == "returning"){
-          $borrowings = Borrowing::with('items', 'user')->where('status', '=', 'Returned')->orWhereNull('status')->get();
-        }else if ($flag == "borrowing"){
-          $borrowings = Borrowing::with('items', 'user')->where('status', '!=', 'Returned')->orWhereNull('status')->get();
+        if ($request->ajax()) {
+            $borrowing = null;
+            if ($flag == "returning") {
+                $borrowings = Borrowing::with('items', 'user')->where('status', '=', 'Returned')->orWhereNull('status')->get();
+            } else if ($flag == "borrowing") {
+                $borrowings = Borrowing::with('items', 'user')->where('status', '!=', 'Returned')->orWhereNull('status')->get();
+            }
+            return DataTables::of($borrowings)
+                ->addIndexColumn()
+                ->addColumn('user_name', function ($borrowing) {
+                    return User::find($borrowing->user_id)->user_name;
+                })
+                ->addColumn('items', function ($borrowing) {
+                    $strings = "";
+                    foreach ($borrowing->items as $item) {
+                        $strings .= $item->item_name . " (.$item->item_id.), ";
+                    }
+                    return $strings;
+                })
+                ->addColumn('action', function ($borrowing) {
+                    $button = '<a data-id="' . $borrowing->borrowing_id . '" class="edit btn btn-success btn-sm" id="btn-invoice"> <i class="bi bi-receipt"></i> Invoice </a>';
+                    $button .= '&nbsp;&nbsp;';
+                    if ($borrowing->status == "Borrowed") {
+                        $button .= '<a data-id="' . $borrowing->borrowing_id . '" class="my-2 edit btn btn-secondary btn-sm" id="btn-returned"> <i class="bi bi-receipt"></i> Returned </a>';
+                        $button .= '&nbsp;&nbsp;';
+                    }
+                    return $button;
+                })->addColumn('status', function ($borrowing) {
+                    return $borrowing->status;
+                })
+                ->rawColumns(['user_name', 'items', 'status', 'action'])
+                ->make(true);
         }
-        return DataTables::of($borrowings)
-            ->addIndexColumn()
-            ->addColumn('user_name', function($borrowing){
-              return User::find($borrowing->user_id)->user_name;
-            })
-            ->addColumn('items', function($borrowing){
-              $strings = "";
-              foreach ($borrowing->items as $item) {
-                $strings .= $item->item_name ." (.$item->item_id.), ";
-              }
-              return $strings;
-            })
-            ->addColumn('action', function ($borrowing) {
-                $button = '<a data-id="' . $borrowing->borrowing_id . '" class="edit btn btn-success btn-sm" id="btn-invoice"> <i class="bi bi-receipt"></i> Invoice </a>';
-                $button .= '&nbsp;&nbsp;';
-                return $button;
-            })->addColumn('status', function($borrowing){
-              return $borrowing->status;
-            })
-            ->rawColumns(['user_name','items','status','action'])
-            ->make(true);
-      }
     }
 
     public function checkUserData(Request $req)
