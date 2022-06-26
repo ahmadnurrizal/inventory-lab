@@ -25,9 +25,9 @@ class BorrowingController extends Controller
       if ($request->ajax()) {
         $borrowing = null;
         if($flag == "returning"){
-          $borrowings = Borrowing::where('status', '=', 'Returned')->orWhereNull('status')->get();
+          $borrowings = Borrowing::with('items', 'user')->where('status', '=', 'Returned')->orWhereNull('status')->get();
         }else if ($flag == "borrowing"){
-          $borrowings = Borrowing::where('status', '!=', 'Returned')->orWhereNull('status')->get();
+          $borrowings = Borrowing::with('items', 'user')->where('status', '!=', 'Returned')->orWhereNull('status')->get();
         }
         return DataTables::of($borrowings)
             ->addIndexColumn()
@@ -36,7 +36,7 @@ class BorrowingController extends Controller
             })
             ->addColumn('items', function($borrowing){
               $strings = "";
-              foreach ($borrowing->with('items')->get()[0]->items as $item) {
+              foreach ($borrowing->items as $item) {
                 $strings .= $item->item_name ." (.$item->item_id.), ";
               }
               return $strings;
