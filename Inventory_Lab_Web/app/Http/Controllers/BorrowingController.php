@@ -45,6 +45,11 @@ class BorrowingController extends Controller
                 ->addColumn('action', function ($borrowing) {
                     $button = '<a data-id="' . $borrowing->borrowing_id . '" class="edit btn btn-success btn-sm" id="btn-invoice"> <i class="bi bi-receipt"></i> Invoice </a>';
                     $button .= '&nbsp;&nbsp;';
+                    if ($borrowing->status == "Borrowed") {
+                        $button .= '<a data-id="' . $borrowing->borrowing_id . '" class="my-2 edit btn btn-secondary btn-sm" id="btn-returned"> <i class="bi bi-receipt"></i> Returned </a>';
+                        $button .= '&nbsp;&nbsp;';
+                    }
+
                     return $button;
                 })->addColumn('status', function ($borrowing) {
                     return $borrowing->status;
@@ -102,9 +107,14 @@ class BorrowingController extends Controller
             ->with('borrowing', $borrowing);
     }
 
-    public function update($id)
+    public function returnItem($id)
     {
-        // code here
+        Borrowing::where('borrowing_id', $id)->update([
+            'status' =>  "Returned",
+        ]);
+        Alert::success('Success', 'Item Returned');
+        // return view('borrowing.index');
+        // return back();
     }
 
     public function delete($id)

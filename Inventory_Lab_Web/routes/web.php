@@ -36,6 +36,7 @@ Route::get('/borrowing/{flag}', [BorrowingController::class, 'getBorrowing'])->n
 Route::get('/borrowing/invoice/{id}', [BorrowingController::class, 'invoice'])->name('borrowing.invoice');
 
 Route::get('/returning', [BorrowingController::class, 'returningIndex'])->name('returning.index');
+Route::get('/return-item/{id}', [BorrowingController::class, 'returnItem'])->name('returning.item');
 
 Route::get('/backendUser', [UserController::class, 'backendUserIndex'])->name('backendUser.index');
 Route::post('/backendUser', [UserController::class, 'store']);

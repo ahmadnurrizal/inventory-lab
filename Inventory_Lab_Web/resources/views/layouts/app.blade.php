@@ -23,8 +23,9 @@
     @include('sweetalert::alert')
     <img src="{{asset('img/bg/Group 38.png')}}" alt="" style="position:absolute;right:0;z-index:-1">
     <div id="mySidebar" class="sidebar">
-        <a class="text-center p-0" style="margin-bottom:50px;margin-top: 30px;border:none;">
-            <h1 style="color:white">LOGO</h1>
+        <a class="text-center p-0" style="margin-bottom:50px;border:none;">
+            <h1 style="color:white">Inventory</h1>
+            <h1 style="color:white">Lab</h1>
         </a>
         <ul style="padding-left:0px">
             <li><a href="{{route('admin.dashboard')}}"

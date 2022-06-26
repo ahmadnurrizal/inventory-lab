@@ -42,49 +42,52 @@
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
 <script type="text/javascript">
-  $(function(){
-    $('#datatables-ajax').DataTable({
-      processing: true,
-      serverSide: true,
-      ajax: "{{route('borrowing.list','returning')}}",
-      columns: [
-          { data: 'borrowing_id', name: 'borrowing_id' },
-          { data: 'user_name', name: 'user_name' },
-          { data: 'items', name: 'items' },
-          { data: 'created_at', name: 'created_at' },
-          { data: 'return_at', name: 'return_at' },
-          { data: 'status', name: 'status' },
-          {
-            data: 'action',
-            name: 'action',
-            orderable: false,
-            searchable: false,
-            width:'20%'
-          },
-      ]
-    });
+    $(function () {
+        $('#datatables-ajax').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{route('borrowing.list','returning')}}",
+            columns: [
+                { data: 'borrowing_id', name: 'borrowing_id' },
+                { data: 'user_name', name: 'user_name' },
+                { data: 'items', name: 'items' },
+                { data: 'created_at', name: 'created_at' },
+                { data: 'return_at', name: 'return_at' },
+                { data: 'status', name: 'status' },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false,
+                    width: '20%'
+                },
+            ]
+        });
 
-    $(document).ready(function(){
+        $(document).ready(function () {
 
-    }).on('click', '#btn-invoice', function(){
-      let id = $(this).data('id');
-          dialog = bootbox.dialog({
-            title: "Invoice #"+id,
-            size:'large',
-            message: '<center><div class="preloader"><div class="spinner-layer pl-red"><div class="circle-clipper left"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div></center>',
-          })
-          dialog.init(function(e){
-            let req = new XMLHttpRequest();
-            req.onreadystatechange = function(){
-            if (this.readyState == 4 && this.status == 200) {
-              dialog.find('.modal-content > .modal-body').html(this.responseText);
-            }
-          };
-          req.open("GET", '{{route("borrowing.invoice",'')}}/'+id, true);
-          req.send();
-      })
+        }).on('click', '#btn-invoice', function () {
+            let id = $(this).data('id');
+            dialog = bootbox.dialog({
+                title: "Invoice #" + id,
+                size: 'large',
+                message: '<center><div class="preloader"><div class="spinner-layer pl-red"><div class="circle-clipper left"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div></center>',
+            })
+            dialog.init(function (e) {
+                let req = new XMLHttpRequest();
+                req.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        dialog.find('.modal-content > .modal-body').html(this.responseText);
+                    }
+                };
+                req.open("GET", '{{route("borrowing.invoice",'')}}/' + id, true);
+                req.send();
+            })
+        })
+
+
+
     })
-  })
 
 </script>
 @endsection
