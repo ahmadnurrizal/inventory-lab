@@ -24,6 +24,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/pred', function () {
+    return view('prediction');
+});
 Route::get('/item', [ItemController::class, 'index'])->name('item.index');
 Route::post('/item', [ItemController::class, 'store']);
 Route::get('/item/{id}/edit', [ItemController::class, 'show']);
